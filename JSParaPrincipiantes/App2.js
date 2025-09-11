@@ -19,3 +19,14 @@ let Result = NumberOne + NumberTwo;
 let Comparation = NumberOne== NumberTwo;
 console.log(Result);
 console.log(Comparation);
+
+// Comparación con ifs (Validaciones)
+let password = "1234";
+
+let input = '4321' 
+let Correcto = input == password;
+if(Correcto= true){
+    console.log('Sesión iniciada con éxito');
+} else{
+    console.log('Contraseña incorrecta')
+}
