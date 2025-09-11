@@ -69,3 +69,10 @@ let names = ['ryan', 'joe', 'john'];
 for(let i=1;i< names.length; i++){
     console.log(names[i])
 }
+
+// Funciones
+function greeting(name){
+    console.log(name)
+    console.log('hello');
+}
+greeting('asasdsa');
