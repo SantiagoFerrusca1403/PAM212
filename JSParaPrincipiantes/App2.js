@@ -30,3 +30,29 @@ if(Correcto= true){
 } else{
     console.log('Contraseña incorrecta')
 }
+
+//Puntajes
+let score=70;
+if(score< 15){
+    console.log('You need to practice more');
+}
+if(score > 30){
+    console.log('Vas mejorando');
+}
+else{
+    console.log('echale ganas master');
+}
+
+// Tarjetas
+let typeCard = 'Credit card';
+
+switch(typeCard){
+    case 'Debid card':
+        console.log('this is a debid card');
+        break;
+    case 'Credit card':
+        console.log('this is a redit card');
+        break;
+    default:
+        console.log('you dont have a card');
+}
