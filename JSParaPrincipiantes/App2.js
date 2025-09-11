@@ -71,8 +71,15 @@ for(let i=1;i< names.length; i++){
 }
 
 // Funciones
-function greeting(name){
-    console.log(name)
-    console.log('hello');
+function greeting(person){
+    console.log('hello' + person);
 }
-greeting('asasdsa');
+greeting('Karla');
+greeting('Ivette');
+greeting('Daniela');
+
+function add(n1, n2){
+    console.log(n1+n2);
+}
+add(500,400);
+add(600,2);
