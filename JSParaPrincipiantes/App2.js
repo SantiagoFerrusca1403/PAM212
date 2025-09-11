@@ -56,3 +56,16 @@ switch(typeCard){
     default:
         console.log('you dont have a card');
 }
+
+// WHILE
+let count = 0;   
+while(count< 50){
+    console.log(count);
+    count ++;
+}
+// Arreglos 
+let names = ['ryan', 'joe', 'john'];
+
+for(let i=1;i< names.length; i++){
+    console.log(names[i])
+}
