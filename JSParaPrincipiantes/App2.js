@@ -12,3 +12,10 @@ let name = 'Santiago';
 let Lastname = 'Alcaraz'
 let CompleteName =  name + ' ' + lastname;
 console.log(CompleteName)
+
+let NumberOne = 100;
+let NumberTwo = 500; 
+let Result = NumberOne + NumberTwo;
+let Comparation = NumberOne== NumberTwo;
+console.log(Result);
+console.log(Comparation);
