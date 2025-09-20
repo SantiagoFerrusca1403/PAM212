@@ -1,11 +1,10 @@
-const persona = {
-    nombre: "Santiago Alcaraz Ferrusca",
-    edad: 18,
-    direccion: {
-        ciudad: "Querétaro",
-        pais: "México"
-    }
-};
-
-const {nombre,edad,direccion: { ciudad }}=persona;
-console.log("Hola que tal, mi nombre es ", nombre, " tengo la edad de ", edad, " y vivo en ",ciudad);
+const productos = [
+    {nombre: "Laptop", precio: 1200},
+    {nombre: "Mouse", precio: 250},
+    {nombre:"Teclado", precio: 750},
+    {nombre: "Monitor", precio: 7000}
+];
+const filtro = productos.filter(producto => producto.precio > 1000);
+const nombres = filtro.map(producto => producto.nombre);
+console.log(filtro);
+console.log(nombres);
