@@ -1,26 +1,15 @@
-function verificarUsuario(usuario){
-  return new Promise((resolve,reject)=> {
-    if(usuario == "admin"){
-        resolve("Acceso permitido");
-    }
-    else {
-        reject("Acceso denegado");
-    }
-  });
+function simulatorAPI(){
+    return new Promise(resolve =>{
+        setTimeout(() => {
+            resolve("Datos recibidos correctamente");
+
+        }, 5000);
+    });
 }
-
-verificarUsuario("admin")
-.then((mensaje) => {
-    console.log(mensaje);
-})
-.catch((error) => {
-    console.log(error);
-});
-
-verificarUsuario("Alcachofa")
-.then((mensaje) => {
-    console.log(mensaje);
-})
-.catch((error) => {
-    console.log(error);
-});
+async function obtenerDatos() {
+    console.log("Solicitando datos")
+    const respuesta = await simulatorAPI();
+    console.log(respuesta);
+    
+}
+console.log(obtenerDatos());
