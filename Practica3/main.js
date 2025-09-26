@@ -1,5 +1,26 @@
-import { restar } from "./utils.js";
+function verificarUsuario(usuario){
+  return new Promise((resolve,reject)=> {
+    if(usuario == "admin"){
+        resolve("Acceso permitido");
+    }
+    else {
+        reject("Acceso denegado");
+    }
+  });
+}
 
-console.log(restar(10,2));
-console.log(restar(4,2));
-console.log(restar(22,11));
+verificarUsuario("admin")
+.then((mensaje) => {
+    console.log(mensaje);
+})
+.catch((error) => {
+    console.log(error);
+});
+
+verificarUsuario("Alcachofa")
+.then((mensaje) => {
+    console.log(mensaje);
+})
+.catch((error) => {
+    console.log(error);
+});
