@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './BotonesScreen';
 import { Button } from "react-native-web";
+import ActivityIndicatorScreen from './ActivityIndicatorScreen';
+
 
 export default function MenuScreen() {
     const [screen,setScreen]= useState('menu');
@@ -11,6 +13,8 @@ export default function MenuScreen() {
         return <ContadorScreen/>;
         case 'botones':
         return <BotonesScreen/>;
+        case 'activity':
+        return <ActivityIndicatorScreen />;
         case 'menu':
             default: 
             return (
@@ -21,7 +25,7 @@ export default function MenuScreen() {
               <Button onPress={() => setScreen('contador')} title='Pract:Text Input & Aler'/>
               <Button onPress={() => setScreen('contador')} title='Pract:ImageBackgroung & SlapshScreen'/>
               <Button onPress={() => setScreen('contador')} title='Pract:ScrollView'/>
-              <Button onPress={() => setScreen('contador')} title='Pract:ActivityIndicator'/>
+              <Button onPress={() => setScreen('activity')} title='Pract:ActivityIndicatorScreen'/>
               <Button onPress={() => setScreen('contador')} title='Pract:FlatList y Section List'/>
               <Button onPress={() => setScreen('contador')} title='Pract:Modal '/>
                 <Button onPress={() => setScreen('contador')} title='Pract:Bottom Sheet'/>   
