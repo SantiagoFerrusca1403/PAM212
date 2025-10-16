@@ -1,10 +1,10 @@
 import { Text, StyleSheet, View } from 'react-native'
 
-export default function BotonesScreen() {
+export default function ImageBackgroungScreen() {
  
     return (
       <View>
-        <Text>BotonesScreen Proximamente...</Text>
+        <Text>ImageBackgroung Proximamente...</Text>
       </View>
     )
 
