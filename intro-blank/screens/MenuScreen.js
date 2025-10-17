@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import ContadorScreen from './ContadorScreen';
-import BotonesScreen from './BotonesScreen';
+import BotonesScreen from './Botones/BotonesScreen';
 import { Button } from "react-native-web";
 import ActivityIndicatorScreen from './ActivityIndicatorScreen';
 import TextInputScreen from './TextInputScreen';
