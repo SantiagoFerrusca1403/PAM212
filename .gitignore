@@ -1,1 +1,5 @@
 Pruebas/Ejemplo.txt
+/node_modules/.bin
+/node_modules
+package-lock.json
+package.json
