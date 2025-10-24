@@ -10,6 +10,8 @@ import ScrollViewScreen from './ScrollViewScreen';
 import FlatListScreen from './FlatListScreen';
 import ModalScreen from './ModalScreen';
 import BottomSheetScreen from './BottomSheetScreen';
+import RepasoScreen from './RepasoScreen';
+
 
 
 export default function MenuScreen() {
@@ -33,11 +35,14 @@ export default function MenuScreen() {
         return <ModalScreen/>;
         case 'bottom Sheet':
         return <BottomSheetScreen />;
+         case 'repaso':
+        return <RepasoScreen />;
         case 'menu':
             default: 
             return (
-             <View>
+             <View style={styles.container}> 
               <Text>MenuScreen</Text>
+              <View style={styles.contenedorBotones}> 
               <Button onPress={() => setScreen('contador')} title='Pract:Contador'/>
               <Button onPress={() => setScreen('botones')} title='Pract:Botones'/>
               <Button onPress={() => setScreen('textInput')} title='Pract:TextInput'/>
@@ -46,7 +51,9 @@ export default function MenuScreen() {
               <Button onPress={() => setScreen('activity')} title='Pract:ActivityIndicatorScreen'/>
               <Button onPress={() => setScreen('flatlist')} title='Pract:FlatList'/>
               <Button onPress={() => setScreen('modal')} title='Pract:Modal '/>
-                <Button onPress={() => setScreen('bottom Sheet')} title='Pract:Bottom Sheet'/>   
+              <Button onPress={() => setScreen('bottom Sheet')} title='Pract:Bottom Sheet'/>
+              <Button onPress={() => setScreen('repaso')} title='Pract:RepasoScreen '/>
+              </View>
               </View>
             )
          
@@ -54,4 +61,19 @@ export default function MenuScreen() {
     
   
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#10092eff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    contenedorBotones:{
+        marginTop:15,
+        flexDirection:'line',
+        gap:20,
+    },
+
+});
 

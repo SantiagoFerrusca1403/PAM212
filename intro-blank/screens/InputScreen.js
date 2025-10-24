@@ -1,29 +1,40 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, Button, StyleSheet } from 'react-native';
 
-export default function TextScreen() {
+export default function InputScreen() {
   const [nombre, setNombre] = useState('');
   const [mensaje, setMensaje] = useState('');
-  const [contrasenia, setContrasenia] = useState("");
+  const [correo, setCorreo] = useState("");
   const [comentario, setComentario] = useState("");
 
   const enviarDatos = () => {
-    if (nombre.trim() === '' || contrasenia.trim() === "" ) {
-      Alert.alert('Error', 'Completa todos los campos');
-      alert('Error: Completa todos los campos');
-      setMensaje('Campo en blanco, por favor completa todos los campos');
+    if (nombre.trim() === '') {
+      Alert.alert('Error', 'Agrega tu nombre');
+      alert('Error: Agrega tu nombre');
+      setMensaje('Agrega tu nombre');
 
     } else {
-      Alert.alert('¡Hola!', 'Tus datos fueron enviados correctamente');
-      alert('¡Hola!', 'Tus datos fueron enviados correctamente.');
+      Alert.alert('¡Hola! '+ nombre + ' Bienvenid@');
+      alert('¡Hola!', nombre, 'Tus datos fueron enviados correctamente.');
 
-      setMensaje('¡Hola!', 'Tus datos fueron enviados correctamente :3.');
+      setMensaje('¡Hola!'+ nombre + 'Tus datos fueron enviados correctamente :3.');
+    }
+    if (correo.trim() === '') {
+      Alert.alert('Error', 'Agrega tu correo');
+      alert('Error: Agrega tu correo');
+      setMensaje('Agrega tu correo');
+
+    } 
+    if(nombre.trim()==='' && correo.trim()===''){
+        Alert.alert('Error', 'LLena bien los campos');
+      alert('Error: Llena bien los campos');
+      setMensaje('Llena bien los campos');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Práctica para ingresar tu nombre usando TextInput y Alert</Text>
+      <Text style={styles.title}>Formulario de prueba</Text>
       <TextInput
         style={styles.input}
         placeholder="Escribe tu nombre"
@@ -32,9 +43,9 @@ export default function TextScreen() {
       />
         <TextInput
         style={styles.input}
-        placeholder="Escribe tu constraseña"
-        value={contrasenia}
-        onChangeText={setContrasenia}
+        placeholder="Escribe tu correo"
+        value={correo}
+        onChangeText={setCorreo}
         secureTextEntry={true}
         keyboardType='numeric'
       />
@@ -64,14 +75,16 @@ const styles = StyleSheet.create({
   },
   title:{
     fontSize:25,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    color: '#c89318ff'
   },
   input:{
     width:'80%',
     borderWidth:3,
     borderColor:'#c89318ff',
     padding:12,
-    borderRadius:9
+    borderRadius:9,
+    color: '#ffffffff'
   },
   mensaje:{
     marginTop:20,
