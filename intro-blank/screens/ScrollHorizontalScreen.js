@@ -17,17 +17,19 @@ const DATA = [
 const SimpleHeader = () => {
   return (
     <View style ={styles.header}>
-      <Text style={styles.title}>ScrollView Vertical</Text>
+      <Text style={styles.title}>ScrollView Horizontal</Text>
     </View>
   );
 };
 
-const SimpleScrollView = () => {
+const SimpleScrollViewHorizontal = () => {
   return (
-    <View>
+    <View style ={styles.container}>
       <SimpleHeader/>
       <ScrollView 
-      showVerticalScrollIndicator={false}
+      horizontal = {true}
+      showHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.scrollContent}
       >
         {DATA.map(val => {
           return (
@@ -41,31 +43,39 @@ const SimpleScrollView = () => {
   );
 };
 
-export default SimpleScrollView;
+export default SimpleScrollViewHorizontal;
 
 const styles = StyleSheet.create({
+  scrollContent:{
+    paddingVertical: 10,
+
+  },
+  container:{
+    flex: 1,
+  },
   header: {
     height: 120,
-    backgroundColor: '#358e50ff',
+    backgroundColor: '#7787caff',
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 25,
   },
   title: {
-    color: '#ffffffff',
+    color: '#0b2f14ff',
     fontWeigt: 'bold',
     fontSize: 20,
   },
   card: {
-    height: 100,
-    backgroundColor: '#2b9442ff',
-    marginTop: 10, 
+    width: 100,
+    height: 150,
+    backgroundColor: '#26ca4cff',
+    marginLeft: 10, 
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginVertical: 10,
   },
   subtitle: {
-    color: '#181D31',
+    color: '#175e2fff',
     fontWeight: 'bold',
   },
 });

@@ -7,6 +7,7 @@ import ActivityIndicatorScreen from './ActivityIndicatorScreen';
 import TextInputScreen from './TextInputScreen';
 import ImageBackgroungScreen from './ImageBackgroungScreen';
 import ScrollViewScreen from './ScrollViewScreen';
+import ScrollHorizontalScreen from './ScrollHorizontalScreen';
 import FlatListScreen from './FlatListScreen';
 import ModalScreen from './ModalScreen';
 import BottomSheetScreen from './BottomSheetScreen';
@@ -27,6 +28,8 @@ export default function MenuScreen() {
         return <ImageBackgroungScreen/>;
         case 'scrollView':
         return <ScrollViewScreen/>;
+        case 'scrollHorizontal':
+        return <ScrollHorizontalScreen/>;
         case 'activity':
         return <ActivityIndicatorScreen />;
         case 'flatlist':
@@ -48,6 +51,7 @@ export default function MenuScreen() {
               <Button onPress={() => setScreen('textInput')} title='Pract:TextInput'/>
               <Button onPress={() => setScreen('imageBackgroung')} title='Pract:ImageBackgroung'/>
               <Button onPress={() => setScreen('scrollView')} title='Pract:ScrollView'/>
+              <Button onPress={() => setScreen('scrollHorizontal')} title='Pract:ScrollHorizontal'/>
               <Button onPress={() => setScreen('activity')} title='Pract:ActivityIndicatorScreen'/>
               <Button onPress={() => setScreen('flatlist')} title='Pract:FlatList'/>
               <Button onPress={() => setScreen('modal')} title='Pract:Modal '/>
