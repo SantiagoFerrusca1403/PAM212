@@ -29,53 +29,49 @@ export default function Repaso() {
   const [comentario, setComentario] = useState("");
 
   useEffect(() => {
-    // Animación inicial del logo: fade + scale + rotación
-    Animated.parallel([
-      Animated.timing(fadeLogo, {
-        toValue: 1,
-        duration: 1200,
-        useNativeDriver: false,
-      }),
-      Animated.spring(scaleLogo, {
-        toValue: 1,
-        friction: 5,
-        useNativeDriver: false,
-      }),
-      Animated.timing(rotateLogo, {
-        toValue: 1,
-        duration: 1200,
-        useNativeDriver: false,
-      }),
-    ]).start();
-
-    // Animación del texto: slide + fade
-    Animated.timing(slideText, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: false,
-      delay: 800,
-    }).start();
-
-    // Después de 3s, fade-out del Splash y mostrar contenido principal
-    const timer = setTimeout(async () => {
-      Animated.timing(fadeOut, {
+      Animated.parallel([
+        Animated.timing(fadeLogo, {
+          toValue: 1,
+          duration: 1200,
+          useNativeDriver: false,
+        }),
+        Animated.spring(scaleLogo, {
+          toValue: 1,
+          friction: 5,
+          useNativeDriver: false,
+        }),
+        Animated.timing(rotateLogo, {
+          toValue: 1,
+          duration: 1200,
+          useNativeDriver: false,
+        }),
+      ]).start();
+  
+      Animated.timing(slideText, {
         toValue: 0,
-        duration: 800,
+        duration: 1000,
         useNativeDriver: false,
-      }).start(async () => {
-        await SplashScreen.hideAsync(); // oculta splash de Expo
-        setShowMain(true); // muestra contenido principal
-      });
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const rotateInterpolate = rotateLogo.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "10deg"],
-  });
-
+        delay: 800,
+      }).start();
+  
+      const timer = setTimeout(async () => {
+        Animated.timing(fadeOut, {
+          toValue: 0,
+          duration: 800,
+          useNativeDriver: false,
+        }).start(async () => {
+          await SplashScreen.hideAsync(); // oculta splash de Expo
+          setShowMain(true); // muestra contenido principal
+        });
+      }, 3000);
+  
+      return () => clearTimeout(timer);
+    }, []);
+  
+    const rotateInterpolate = rotateLogo.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "10deg"],
+    });
   if (showMain) {
     return (
       
@@ -86,8 +82,7 @@ export default function Repaso() {
       >
         <View style={styles.content}>
           <InputScreen></InputScreen>
-          
-        </View>
+          </View>
       </ImageBackground>
       
       
@@ -111,7 +106,7 @@ export default function Repaso() {
       <Animated.Text
         style={[styles.text, { transform: [{ translateY: slideText }] }]}
       >
-        ¡Práctica de Repaso del primer parcial!
+        ¡Práctica de Repaso del segundo parcial!
       </Animated.Text>
       <Animated.View
         style={[

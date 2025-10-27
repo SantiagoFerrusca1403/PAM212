@@ -15,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 const { height } = Dimensions.get("window");
 
 export default function SplashScreenPro() {
-  const [showMain, setShowMain] = useState(false); // controla la pantalla principal
+  const [showMain, setShowMain] = useState(false); 
 
   // Animaciones Splash
   const fadeLogo = useRef(new Animated.Value(0)).current;
@@ -25,7 +25,6 @@ export default function SplashScreenPro() {
   const fadeOut = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    // Animación inicial del logo: fade + scale + rotación
     Animated.parallel([
       Animated.timing(fadeLogo, {
         toValue: 1,
@@ -44,7 +43,6 @@ export default function SplashScreenPro() {
       }),
     ]).start();
 
-    // Animación del texto: slide + fade
     Animated.timing(slideText, {
       toValue: 0,
       duration: 1000,
@@ -52,7 +50,6 @@ export default function SplashScreenPro() {
       delay: 800,
     }).start();
 
-    // Después de 3s, fade-out del Splash y mostrar contenido principal
     const timer = setTimeout(async () => {
       Animated.timing(fadeOut, {
         toValue: 0,
@@ -77,7 +74,7 @@ export default function SplashScreenPro() {
       <ImageBackground
         source={require("../assets/wallhaven-3ql99v.jpg")}
         style={styles.background}
-        resizeMode="cover" // 'cover'cd hace que la imagen llene toda la pantalla
+        resizeMode="cover"
       >
         <View style={styles.content}>
           <Text style={styles.text}>¡Bienvenido!</Text>

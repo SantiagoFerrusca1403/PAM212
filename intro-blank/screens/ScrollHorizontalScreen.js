@@ -22,7 +22,7 @@ const SimpleHeader = () => {
   );
 };
 
-const SimpleScrollViewHorizontal = () => {
+const SimpleScrollView = () => {
   return (
     <View style ={styles.container}>
       <SimpleHeader/>

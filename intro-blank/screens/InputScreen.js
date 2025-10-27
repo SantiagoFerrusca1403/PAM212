@@ -1,95 +1,110 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, Button, StyleSheet } from 'react-native';
+import { View, Text, Switch, TextInput, Alert, Button, StyleSheet } from 'react-native';
 
 export default function InputScreen() {
   const [nombre, setNombre] = useState('');
   const [mensaje, setMensaje] = useState('');
-  const [correo, setCorreo] = useState("");
-  const [comentario, setComentario] = useState("");
+  const [correo, setCorreo] = useState('');
+  const [terminos, setTerminos] = useState(false);
 
   const enviarDatos = () => {
-    if (nombre.trim() === '') {
-      Alert.alert('Error', 'Agrega tu nombre');
-      alert('Error: Agrega tu nombre');
-      setMensaje('Agrega tu nombre');
-
-    } else {
-      Alert.alert('¡Hola! '+ nombre + ' Bienvenid@');
-      alert('¡Hola!', nombre, 'Tus datos fueron enviados correctamente.');
-
-      setMensaje('¡Hola!'+ nombre + 'Tus datos fueron enviados correctamente :3.');
+    if (!terminos) {
+      Alert.alert('Error', 'Debes aceptar los términos y condiciones');
+      alert('Error', 'Debes aceptar los términos y condiciones');
+      setMensaje('Acepta los terminos para continuar');
     }
-    if (correo.trim() === '') {
-      Alert.alert('Error', 'Agrega tu correo');
-      alert('Error: Agrega tu correo');
-      setMensaje('Agrega tu correo');
 
-    } 
-    if(nombre.trim()==='' && correo.trim()===''){
-        Alert.alert('Error', 'LLena bien los campos');
-      alert('Error: Llena bien los campos');
+    if (nombre.trim() === '' && correo.trim() === '') {
+      Alert.alert('Error', 'Llena bien los campos');
+      alert('Error', 'Llena bien los campos');
       setMensaje('Llena bien los campos');
     }
+
+    
+
+    else {
+          Alert.alert('¡Hola!', 'Tus datos fueron enviados correctamente');
+          alert('¡Hola!', 'Tus datos fueron enviados correctamente.');
+    
+          setMensaje('¡Hola!', 'Tus datos fueron enviados correctamente :3.');
+        };
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Formulario de prueba</Text>
+      <Text style={styles.title}>Registro de Usuario</Text>
+
       <TextInput
         style={styles.input}
-        placeholder="Escribe tu nombre"
+        placeholder="Nombre completo"
+        placeholderTextColor="#ddd"
         value={nombre}
         onChangeText={setNombre}
       />
-        <TextInput
+
+      <TextInput
         style={styles.input}
-        placeholder="Escribe tu correo"
+        placeholder="Correo electrónico"
+        placeholderTextColor="#ddd"
         value={correo}
         onChangeText={setCorreo}
-        secureTextEntry={true}
-        keyboardType='numeric'
-      />
-        <TextInput
-        style={[styles.input, {height : 100, textAlignVertical: "top"}]}
-        placeholder="Escribe un comentario"
-        value={comentario}
-        onChangeText={setComentario}
-        multiline={true}
-        numberOfLines={4}
+        keyboardType="email-address"
       />
 
-      <Button title="Enviar" onPress={enviarDatos} />
+     
+
+      <View style={styles.terminosContainer}>
+        <Text style={styles.label}>Aceptar términos y condiciones</Text>
+        <Switch
+          value={terminos}
+          onValueChange={setTerminos}
+          thumbColor={terminos ? '#c89318ff' : '#f4f3f4'}
+          trackColor={{ false: '#767577', true: '#c89318ff' }}
+        />
+      </View>
+
+      <Button title="Registrarse" onPress={enviarDatos} />
       <Text style={styles.mensaje}>{mensaje}</Text>
-    </View>    
-
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    padding:20,
-    gap:10
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    gap: 10,
   },
-  title:{
-    fontSize:25,
-    fontWeight:'bold',
-    color: '#c89318ff'
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
   },
-  input:{
-    width:'80%',
-    borderWidth:3,
-    borderColor:'#c89318ff',
-    padding:12,
-    borderRadius:9,
-    color: '#ffffffff'
+  input: {
+    width: '80%',
+    borderWidth: 3,
+    borderColor: '#c89318ff',
+    padding: 12,
+    borderRadius: 9,
+    color: '#fff',
   },
-  mensaje:{
-    marginTop:20,
-    fontSize:18,
-    color:'#c89318ff',
-    textAlign:'center'
-  }
+  mensaje: {
+    marginTop: 20,
+    fontSize: 18,
+    color: '#c89318ff',
+    textAlign: 'center',
+  },
+  terminosContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    gap: 10,
+  },
+  label: {
+    color: '#fff',
+    fontSize: 16,
+  },
 });
