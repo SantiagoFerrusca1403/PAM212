@@ -8,21 +8,21 @@ import {
     Alert 
 } from 'react-native';
 
-const DATA_NEWS = [
+const DATA_NEW = [
     {
-        id: 'N1',
-        title: 'Videojuegos', 
+        id: 'c1',
+        title: 'Videojuegos ', 
         items: [
-            { id: 'p1', name: 'Fortnite', description: 'Caldo de temporada con verduras fresca.'},
-            { id: 'p2', name: 'Apex Legends', description: '¿Alguien en serio juega Apex legends Hoy en Dia?.'},
+            { id: 1, name: 'Fortnite', description: '',  },
+            { id: 2, name: 'Apex Legends', description: '' },
         ],
     },
-    {
-        id: 'N2',
-        title: 'Economía', 
+     {
+        id: 'c2',
+        title: 'Videojuegos ', 
         items: [
-            { id: 'p1', name: '¿USA vs China?', description: 'Caldo de temporada con verduras fresca.'},
-            { id: 'p2', name: 'Apex Legends', description: '¿Alguien en serio juega Apex legends Hoy en Dia?.'},
+            { id: 1, name: 'Fortnite', description: '',  },
+            { id: 2, name: 'Apex Legends', description: '' },
         ],
     },
 ];
@@ -30,45 +30,40 @@ const DATA_NEWS = [
 
 
 export default function ExamenScreen() {
-const handleOrder = (dishName, dishPrice) => {
+const handleOrder = (dishName) => {
     Alert.alert(
-        'Confirmar orden', 
-        `¿Desea confirmar la orden de ${dishName} por $${dishPrice.toFixed(2)}?`, 
+        'Articulo', 
+        `${dishName}`, 
         [
-            { text: 'Cancelar', style: 'cancel' },
-            { text: 'Confirmar', onPress: () => console.log(`Orden de ${dishName} confirmada`) }, // Requisito 6: Botón "Confirmar"
+            { text: 'Cancelar', style: 'cancel' }, 
+            { text: 'Confirmar', onPress: () => console.log(`Orden de ${dishName} confirmada`) }, 
         ],
     );
-    alert(
-        'Confirmar orden', // Requisito 6: Título
-        `¿Desea confirmar la orden de ${dishName} por $${dishPrice.toFixed(2)}?`, // Requisito 6: Mensaje
+     alert(
+        'Articulo', 
+        `${dishName}`, 
         [
-            { text: 'Cancelar', style: 'cancel' }, // Requisito 6: Botón "Cancelar"
-            { text: 'Confirmar', onPress: () => console.log(`Orden de ${dishName} confirmada`) }, // Requisito 6: Botón "Confirmar"
+            { text: 'Cancelar', style: 'cancel' }, 
+            { text: 'Confirmar', onPress: () => console.log(`Orden de ${dishName} confirmada`) }, 
         ],
     );
 };
     return (
         
-        // REQUISITO 1: Cambiado a View con color sólido (fondo gris claro)
         <View style={styles.container}>
             
-            {/* REQUISITO 2: Encabezado fijo (lo colocamos fuera del ScrollView) */}
             <View style={styles.header}>
-                <Text style={styles.restaurantName}>RESTAURANT LA ESQUINA</Text>
+                <Text style={styles.restaurantName}>UPQ NEWS</Text>
                 <Text style={styles.restaurantDescription}>
-                    Cocina tradicional con un toque moderno.
+                        UN BUEN FORO PARA ESTAR INFORMADOS
                 </Text>
             </View>
 
-            {/* REQUISITO 3: Implementar un ScrollView */}
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 
-                {/* Mapear las categorías */}
-                {DATA_MENU.map((category) => (
+                {DATA_NEW.map((category) => (
                     <View key={category.id} style={styles.categoryContainer}>
                         
-                        {/* REQUISITO 4: Título de categoría */}
                         <Text style={styles.categoryTitle}>{category.title}</Text>
 
                         {/* Mapear los platillos */}
