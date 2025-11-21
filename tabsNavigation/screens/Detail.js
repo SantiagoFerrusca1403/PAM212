@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function Home() {
+export default function Detail() {
     return (
         <View style={styles.container}>
             <View style={styles.iconRow}>
-                <Ionicons name="home-outline" size={28} color="red" />
-                <Text style={styles.title}>Bienvenido a la pantalla principal</Text>
+                <Ionicons name="information-circle-outline" size={32} color="purple" />
+                <Text style={styles.title}>Detalles Usuario</Text>
+                <Text style={styles.text}>Usando Navegacion Stack</Text>
             </View>
         </View>
     );
@@ -15,7 +16,7 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fed3d3ff',
+        backgroundColor: '#9283f6ff',
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
@@ -23,11 +24,18 @@ const styles = StyleSheet.create({
     iconRow: {
         flexDirection: 'column',
         alignItems: 'center',
+        marginBottom: 20,
     },
     title: {
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: 'bold',
         marginLeft: 10,
-        color: 'red',
+        color: 'black',
+        marginTop: 10,
     },
+    text: {
+        fontSize: 18,
+        color: 'blue',
+        marginTop: 5,
+    }
 });
