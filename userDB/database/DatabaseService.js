@@ -14,7 +14,7 @@ class DatabaseService {
             console.log('Usando SQLite para móvil');
             this.db = await SQLite.openDatabaseAsync('miapp-db');
             await this.db.execAsync(`
-                CREATE TABLE IF NOT EXISTS usuarios (
+                    CREATE TABLE IF NOT EXISTS usuarios (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     nombre TEXT NOT NULL,
                     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -30,7 +30,7 @@ class DatabaseService {
             const data = localStorage.getItem(this.storageKey);
             return data ? JSON.parse(data) : [];
         } else {
-            return await this.db.getAllAsync('SELECT*FROM usuarios ORDER BY id DESC'); 
+            return await this.db.getAllAsync('SELECT * FROM usuarios ORDER BY id DESC'); 
         }
     }
 
@@ -39,7 +39,7 @@ class DatabaseService {
             const usuarios = await this.getAll();
 
             const nuevoUsuario = {
-                id: Date.now,
+                id: Date.now(),
                 nombre,
                 fecha_creacion: new Date().toISOString()
             };
@@ -55,8 +55,53 @@ class DatabaseService {
             return{
                 id: result.lastInsertRowId,
                 nombre,
-                fecha_creacion: new Date().toISOString(0)
+                fecha_creacion: new Date().toISOString()
             };
+        }
+    }
+
+
+    async update(id, nuevoNombre) {
+        if(Platform.OS === 'web'){
+            const usuarios = await this.getAll();
+            const index = usuarios.findIndex(u => u.id === id);
+
+            if (index !== -1) {
+                usuarios[index].nombre = nuevoNombre;
+                localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
+                return usuarios[index];
+            }
+            throw new Error('Usuario no encontrado para actualizar (web)');
+        } else {
+            const result = await this.db.runAsync(
+                'UPDATE usuarios SET nombre = ? WHERE id = ?',
+                nuevoNombre,
+                id
+            );
+            if (result.changes === 0) {
+                throw new Error('No se pudo actualizar el usuario (móvil)');
+            }
+            return { id, nombre: nuevoNombre };
+        }
+    }
+
+    async remove(id) {
+        if(Platform.OS === 'web'){
+            const usuarios = await this.getAll();
+            const Nusuarios = usuarios.filter(u => u.id !== id);
+
+
+            localStorage.setItem(this.storageKey, JSON.stringify(Nusuarios));
+            return true;
+        } else {
+            const result = await this.db.runAsync(
+                'DELETE FROM usuarios WHERE id = ?',
+                id
+            );
+            if (result.changes === 0) {
+                throw new Error('No se pudo eliminar el usuario (móvil)');
+            }
+            return { success: true };
         }
     }
 }

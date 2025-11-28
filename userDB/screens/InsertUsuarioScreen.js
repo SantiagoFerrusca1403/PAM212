@@ -8,6 +8,7 @@ export default function InsertUsuarioScreen() {
 
   const [usuarios, setUsuarios] = useState([]);
   const [nombre, setNombre] = useState('');
+  const [usuarioEditando, setUsuarioEditando] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [guardando, setGuardando] = useState(false);
 
@@ -35,16 +36,25 @@ export default function InsertUsuarioScreen() {
     controller.addListener(cargarUsuarios);
 
     return () => {
-      controller.removeListeners(cargarUsuarios);
+      controller.removeListener(cargarUsuarios);
     };
   }, [cargarUsuarios]);
 
-  const handleAgregar = async () => {
+  const handleGuardar = async () => {
     if (guardando) return;
     try {
       setGuardando(true);
-      const usuarioCreado = await controller.crearUsuario(nombre);
-      Alert.alert('Usuario Creado', `"${usuarioCreado.nombre}" guardado con ID: ${usuarioCreado.id}`);
+
+      if (usuarioEditando) {
+        
+        await controller.actualizarUsuario(usuarioEditando.id, nombre);
+        Alert.alert('Usuario Actualizado', `"${nombre}" actualizado.`);
+        setUsuarioEditando(null); 
+      } else {
+        
+        const usuarioCreado = await controller.crearUsuario(nombre);
+        Alert.alert('Usuario Creado', `"${usuarioCreado.nombre}" guardado con ID: ${usuarioCreado.id}`);
+      }
       setNombre('');
     } catch (error) {
       Alert.alert('Error', error.message);
@@ -52,6 +62,26 @@ export default function InsertUsuarioScreen() {
       setGuardando(false);
     }
   };
+
+  const handleEditar = (usuario) => {
+    setUsuarioEditando(usuario);
+    setNombre(usuario.nombre);
+  };
+
+  const handleCancelarEdicion = () => {
+    setUsuarioEditando(null);
+    setNombre('');
+  };
+
+  const handleEliminar = async (id) => {
+    try {
+      await controller.eliminarUsuario(id);
+      cargarUsuarios();
+    } catch (error) {
+      Alert.alert('Error',error.message);
+    }
+  };
+
 
   const renderUsuario = ({item, index}) => (
     <View style = {styles.userItem}>
@@ -71,6 +101,22 @@ export default function InsertUsuarioScreen() {
           }
         </Text>
       </View>
+      <View style={styles.userActions}>
+        <TouchableOpacity 
+          style={styles.actionButton}
+          onPress={() => handleEditar(item)}
+          disabled={guardando}
+        >
+          <Text style={styles.actionText}>✏️ Editar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => handleEliminar(item.id)}
+          disabled={guardando}
+        >
+          <Text style={[styles.actionText, styles.deleteText]}>🗑️ Eliminar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -78,13 +124,15 @@ export default function InsertUsuarioScreen() {
 
     <View style={styles.container}>
 
-      <Text style={styles.title}> INSERT & SELECT</Text>
+      <Text style={styles.title}> CRUD DE USUARIOS</Text>
       <Text style={styles.subtitle}>
         {Platform.OS === 'web' ? ' WEB (LocalStorage)' : ` ${Platform.OS.toUpperCase()} (SQLite)`}
       </Text>
 
       <View style={styles.insertSection}>
-        <Text style={styles.sectionTitle}> Insertar Usuario</Text>
+        <Text style={styles.sectionTitle}> 
+          {usuarioEditando ? `Editar Usuario: ${usuarioEditando.nombre}` : 'Insertar Nuevo Usuario'}
+        </Text>
 
         <TextInput
           style={styles.input}
@@ -96,14 +144,23 @@ export default function InsertUsuarioScreen() {
 
         <TouchableOpacity
           style={[styles.button, guardando && styles.buttonDisabled]}
-          onPress={ handleAgregar }
+          onPress={ handleGuardar }
           disabled={guardando} >
 
           <Text style={styles.buttonText}>
-            {guardando ? ' Guardando...' : 'Agregar Usuario'}
+            {guardando ? ' Guardando...' : (usuarioEditando ? 'Guardar Cambios' : 'Agregar Usuario')}
           </Text>
 
         </TouchableOpacity>
+
+        {usuarioEditando && (
+          <TouchableOpacity
+            style={[styles.button, styles.cancelButton, guardando && styles.buttonDisabled]}
+            onPress={ handleCancelarEdicion }
+            disabled={guardando} >
+            <Text style={styles.buttonText}>Cancelar Edición</Text>
+          </TouchableOpacity>
+        )}
 
       </View>
 
@@ -111,7 +168,7 @@ export default function InsertUsuarioScreen() {
 
         <View style={styles.selectHeader}>
 
-          <Text style={styles.sectionTitle}>Lista de Usuarios</Text>
+          <Text style={styles.sectionTitle}>Lista de Usuarios ({usuarios.length})</Text>
 
           <TouchableOpacity
             style={styles.refreshButton}
@@ -129,7 +186,7 @@ export default function InsertUsuarioScreen() {
         ) : (
           <FlatList
             data={ usuarios }
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id} // Asegurar que sea string
             renderItem={ renderUsuario }
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
@@ -209,6 +266,10 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
+    marginBottom: 8, 
+  },
+  cancelButton: {
+    backgroundColor: '#ff9800', 
   },
   buttonDisabled: {
     backgroundColor: '#ccc',
@@ -283,6 +344,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
   },
+  userActions: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    marginLeft: 10,
+  },
+  actionButton: {
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    borderRadius: 5,
+  },
+  actionText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#007AFF',
+  },
+  deleteText: {
+    color: '#FF3B30',
+  },
   emptyContainer: {
     alignItems: 'center',
     paddingVertical: 40,
@@ -299,29 +378,5 @@ const styles = StyleSheet.create({
   emptySubtext: {
     fontSize: 14,
     color: '#bbb',
-  },
-  mvcInfo: {
-    backgroundColor: '#e3f2fd',
-    padding: 15,
-    marginHorizontal: 15,
-    marginBottom: 15,
-    borderRadius: 8,
-    borderLeftWidth: 4,
-    borderLeftColor: '#2196F3',
-  },
-  mvcTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#1976D2',
-    marginBottom: 8,
-  },
-  mvcText: {
-    fontSize: 12,
-    color: '#555',
-    lineHeight: 18,
-  },
-  bold: {
-    fontWeight: 'bold',
-    color: '#1976D2',
   },
 });
